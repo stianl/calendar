@@ -1,0 +1,75 @@
+body {
+    font-family: sans-serif;
+    font-size: 10px;
+    margin: 0 0 0 0;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+div#calendar {
+    text-align: center;
+}
+
+div#calendar table {
+    text-align: left;
+    border-collapse:collapse;
+    width: 100%;
+    border: 1px solid #000;
+}
+
+div#configuration {
+    width: 90%;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #eee;
+    border: 1px dotted #ccc;
+    -moz-box-shadow: 0px 5px 5px #ccc;
+    -webkit-box-shadow: 0px 5px 5px #ccc;
+    box-shadow: 0px 5px 5px #ccc;
+}
+
+div#configuration table {
+    text-align: left;
+}
+
+div#configuration td {
+    border: 0;
+}
+
+div#configuration td .key {
+   text-align: right;
+}
+
+button {
+    width: 130px;
+    height: 40px;
+}
+
+td {
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #ccc;
+    padding: 3px;
+}
+
+#calendar {
+    padding: 10px;
+}
+
+.dayName {
+    padding-right:1px;
+    padding-left: 1px;
+}
+
+.day {
+    border-left: 0;
+    border-right: 0;
+}
+
+.monthHeader {
+    text-align: center;
+}

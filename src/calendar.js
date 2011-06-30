@@ -1,3 +1,7 @@
+
+var style_cookie_name = "style" ;
+var style_cookie_duration = 30 ;
+
 function calculateEasterSunday(YR) {
 /* http://www.merlyn.demon.co.uk/estralgs.txt
 Anon, put in Wikipedia computus Discussion by A1jrj, 2008-05-01;
@@ -24,16 +28,37 @@ function MaybeGauss1(YR) {
 function init() {
     $('#remake').click(makeCalendar);
     $('#year').attr('value', '2011');
+    $('#calendar h1').html("2011");
     $('#year').focus();
+    $('#print').click(function(event) {
+        event.preventDefault();
+        window.print();
+    });
+    $('#toggleConfiguration').click(function(event) {
+        event.preventDefault();
+        $('#configurationcontent').slideToggle('slow', 'swing');
+    });
     makeCalendar();
 }
 
 function makeCalendar() {
   $('#calendar table').empty();
   var year = $('#year').attr('value');
+  $('#calendar h1').html(year);
   var type = $("input[@name='amount']:checked").val()
-  console.log("Making calendar for year " + year);
-  console.log("Type " + type);
+  var theme = $('#theme').val();
+  if (!(typeof console == 'undefined')) {
+    console.log("Making calendar for year " + year);
+    console.log("Type " + type);
+    console.log("Theme " + theme);
+  }
+  $("#theme1").attr("disabled", true);
+  $("#theme2").attr("disabled", true);
+  if (theme == "blue") {
+    $("#theme1").attr("disabled", false);
+  } else if (theme == "green") {
+    $("#theme2").attr("disabled", false);
+  }
   var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"];
 
   var newYears = new Date(year, 0, 1);
@@ -84,10 +109,10 @@ function makeCalendar() {
             weeknr = "Uke " + theDate.getWeek();
           }
           var content = "&nbsp;";
-          monthHeader = $("<td id='" + i + "-" + j + "' class='daynr'>"  + (daynr) + "</td><td class='dayid'>" + dayname + "</td><td class='content'>" + content + "</td><td class='weeknr'>" + weeknr + "</td>");
+          monthHeader = $("<td id='" + i + "-" + j + "' class='dayOfMonth'>"  + (daynr) + "</td><td class='dayName'>" + dayname + "</td><td class='content'>" + content + "</td><td class='weeknr'>" + weeknr + "</td>");
           monthHeader.addClass("day")
           if (j%2==0)
-            monthHeader.addClass("zebraDay");
+            monthHeader.addClass("zebra");
 
           if ((theDate.is().sun())) {
             monthHeader.addClass("weekend");

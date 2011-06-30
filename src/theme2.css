@@ -1,0 +1,46 @@
+.day {
+    background-color: #FFF;
+}
+
+.zebra {
+    background-color: #FFF;
+}
+
+.day.weekend {
+     background-color: #CBE5CD;
+}
+
+.zebra.weekend {
+     background-color: #CBE5CD;
+}
+
+.monthHeader {
+  background-color: #B2CC96;
+  border-bottom: 1px solid #000;
+  font-weight: bold;
+  color: #FFF;
+}
+
+.comment {
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    background-color: #ABB200;
+    color: #FFF;
+}
+
+.dayOfMonth {
+    background-color: #F5FFF1;
+    text-align: right;
+    border-left: 1px solid #000;
+}
+
+.weekend.dayOfMonth, .weekend.dayOfMonth {
+    color: #FF0000;
+}
+
+.weeknr {
+    color: #aaa;
+    text-align: right;
+    border-right: 1px solid #000;
+}

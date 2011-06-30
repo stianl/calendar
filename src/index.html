@@ -4,15 +4,12 @@
 <head>
     <title>Calendar</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-    <style type="text/css">
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="common.css" />
+    <link rel="stylesheet" type="text/css" href="theme1.css" title="theme1" id="theme1"/>
+    <link rel="stylesheet" type="text/css" href="theme2.css" title="theme2" id="theme2"/>
+    <link rel="stylesheet" type="text/css" href="print.css" media="print">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <link rel="stylesheet/less" type="text/css" href="styles.less">
-    <script src="less-1.1.3.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="calendar.js"></script>
     <script type="text/javascript" src="date-nb-NO.js"></script>
     <!--
@@ -59,27 +56,52 @@
 
 </head>
 <body>
-<!--<img src="calendar.png" />-->
-    <br />
-    Year: <input type="text" id="year" />
-    <br />
-    <input type="radio" checked="checked" name="amount" value="all" /> All year
-    <br />
-    <input type="radio" name="amount" value="h1" /> H1
-    <br />
-    <input type="radio" name="amount" value="h2" /> H2
-    <br />
-    <button id="remake" value="Remake">Remake</button>
+    <div id="configuration">
+        <div id="configurationcontent" style="display: none;">
+        <table>
+            <tr>
+                <td class="key">Year:</td>
+                <td><input type="text" id="year" /></td>
+            </tr>
+            <tr>
+                <td class="key">Period:</td>
+                <td>
+                    <input type="radio" checked="checked" name="amount" value="all" /> All year
+                    <br />
+                    <input type="radio" name="amount" value="h1" /> H1
+                    <br />
+                    <input type="radio" name="amount" value="h2" /> H2
+                </td>
+            </tr>
+            <tr>
+                <td class="key">Theme:</td>
+                <td><select id="theme">
+                    <option value="blue">Blue skies</option>
+                    <option value="green">Green fields</option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button id="remake" value="Remake">Remake</button></td>
+                <td><a href="#" id="print">Print</a></td>
+            </tr>
+        </table>
+            </div>
+        <a href="#" id="toggleConfiguration">CONFIGURATION</a>
+    </div>
+    <div id="calendar">
+        <h1>2011</h1>
+        <table>
+            <tr>
+            </tr>
+        </table>
 
-     <div id="calendar">
-         <table>
-             <tr>
-             </tr>
-         </table>
-     </div>
-<table width="100%">
-    <tr><td class="comment">Viktige datoer ...</td></tr>
-</table>
+        <table width="100%">
+            <tr><td class="comment">Viktige datoer ...</td></tr>
+        </table>
+    </div>
+
 
 </body>
 </html>
