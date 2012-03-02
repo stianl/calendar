@@ -56,6 +56,10 @@ td {
     padding: 3px;
 }
 
+tr:last-child td {
+    border-bottom: #000;
+}
+
 #calendar {
     padding: 10px;
 }
