@@ -27,8 +27,8 @@ function MaybeGauss1(YR) {
 
 function init() {
     $('#remake').click(makeCalendar);
-    $('#year').attr('value', '2011');
-    $('#calendar h1').html("2011");
+    $('#year').attr('value', new Date().getFullYear());
+    $('#calendar h1').html(new Date().getFullYear());
     $('#year').focus();
     $('#print').click(function(event) {
         event.preventDefault();
