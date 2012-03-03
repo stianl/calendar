@@ -63,6 +63,7 @@ td {
     border-right: 1px solid #000;
     border-bottom: 1px solid #ccc;
     padding: 3px;
+    overflow: hidden;
 }
 
 tr:last-child td {

@@ -42,9 +42,9 @@ function init() {
 }
 
 function toggleHighlight() {
-       $(this).nextUntil(".dayOfMonth").toggleClass("hovered", 1000);
-       $(this).toggleClass("hovered", 1000);
-       $(this).prevUntil(".weeknr").toggleClass("hovered", 1000);
+   $(this).nextUntil(".dayOfMonth").toggleClass("hovered", 1000);
+   $(this).toggleClass("hovered", 1000);
+   $(this).prevUntil(".weeknr").toggleClass("hovered", 1000);
 }
 
 function makeCalendar() {
@@ -65,25 +65,25 @@ function makeCalendar() {
   } else if (theme == "green") {
     $("#theme2").attr("disabled", false);
   }
-  var monthNames = ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"];
 
-  var newYears = new Date(year, 0, 1);
-  var easterSunday = calculateEasterSunday(newYears.getFullYear());
-  var easterThursday = easterSunday.clone().addDays(-3);
-  var easterFriday = easterSunday.clone().addDays(-2);
-  var easterMonday = easterSunday.clone().addDays(1);
-  var whitmon = easterSunday.clone().addDays(49);
-  var whitmon2 = easterSunday.clone().addDays(50);
-  var ascen = easterSunday.clone().addDays(39);
-
-  var may1 = new Date(year, 4, 1);
-  var may17 = new Date(year, 4, 17);
-
-  var boxing1 = new Date(year, 11, 25);
-  var boxing2 = new Date(year, 11, 26);
+  var easterSunday = calculateEasterSunday(new Date().getFullYear());
+  var specialDays = [
+        {"dayName": "1. nyttårsdag", "dayDate": new Date(year, 0, 1)},
+        {"dayName": "1. påskedag", "dayDate": easterSunday},
+        {"dayName": "Skjærtorsdag", "dayDate": easterSunday.clone().addDays(-3)},
+        {"dayName": "Langfredag", "dayDate": easterSunday.clone().addDays(-2)},
+        {"dayName": "2. påskedag", "dayDate": easterSunday.clone().addDays(1)},
+        {"dayName": "Pinseaften", "dayDate": easterSunday.clone().addDays(49)},
+        {"dayName": "1. pinsedag", "dayDate": easterSunday.clone().addDays(50)},
+        {"dayName": "Kristi Himmelfartsdag", "dayDate": easterSunday.clone().addDays(39)},
+        {"dayName": "Arbeidernes dag", "dayDate": new Date(year, 4, 1)},
+        {"dayName": "Grunnlovsdagen", "dayDate": new Date(year, 4, 17)},
+        {"dayName": "1. juledag", "dayDate": new Date(year, 11, 25)},
+        {"dayName": "2. juledag", "dayDate": new Date(year, 11, 26)}
+    ];
 
   var startMonth =0;
-  var endMonth = monthNames.length;
+  var endMonth = Date.CultureInfo.monthNames.length;
   if (type=='h1') {
     endMonth = 6;
   } else if (type=='h2') {
@@ -95,7 +95,7 @@ function makeCalendar() {
     $("#calendar table tbody").append(newTr);
     for (i=startMonth; i<endMonth; i++) {
       if (j == 0) {
-        monthHeader = $("<td colspan=4 class='monthHeader'>" + monthNames[i] + "</td>");
+        monthHeader = $("<td colspan=4 class='monthHeader'>" + Date.CultureInfo.monthNames[i] + "</td>");
         newTr.append(monthHeader);
       } else {
         daysInMonth = Date.getDaysInMonth(year, i);
@@ -112,36 +112,31 @@ function makeCalendar() {
           daynameFull = theDate.toString('dddd');
           daynr = theDate.getDate();
           weeknr = "&nbsp;";
-          if (theDate.is().mon()) {
+          if (theDate.is().mon())
             weeknr = "Uke " + theDate.getWeek();
-          }
+
           var content = "&nbsp;";
+          var markWeekend = false;
+          for (var specialDayCount=0; specialDayCount<specialDays.length; specialDayCount++) {
+            if (theDate.equals(specialDays[specialDayCount].dayDate)) {
+              markWeekend = true;
+              content = specialDays[specialDayCount].dayName;
+            }
+          }
+
           monthHeader = $("<td id='" + i + "-" + j + "' class='dayOfMonth'>"  + (daynr) + "</td><td class='dayName' title='"+ daynameFull    + "'>" + dayname + "</td><td class='content' title='" + theDate + "'>" + content + "</td><td class='weeknr' title='" + theDate + "'>" + weeknr + "</td>");
-          //monthHeader = $("<td id='" + i + "-" + j + "'>"  + (daynr) + "</td><td>" + dayname + "</td><td>" + content + "</td><td>" + weeknr + "</td>");
           monthHeader.addClass("day")
+
+          if (markWeekend)
+            monthHeader.addClass("weekend");
 
           if (j%2==0)
             monthHeader.addClass("zebra");
 
-          if ((theDate.is().sun())) {
+          if ((theDate.is().sun()))
             monthHeader.addClass("weekend");
-          }
 
-          if (theDate.equals(easterSunday) ||
-            theDate.equals(easterMonday) ||
-            theDate.equals(easterThursday) ||
-            theDate.equals(easterFriday) ||
-            theDate.equals(newYears) ||
-            theDate.equals(boxing1) ||
-            theDate.equals(boxing2) ||
-            theDate.equals(whitmon) ||
-            theDate.equals(whitmon2) ||
-            theDate.equals(ascen) ||
-            theDate.equals(may1) ||
-            theDate.equals(may17)) {
-              monthHeader.addClass("weekend");
-              content = 'holy';
-          }
+
 
           if (Date.today().equals(theDate))
             monthHeader.addClass("today");
