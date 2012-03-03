@@ -49,6 +49,15 @@ button {
     height: 40px;
 }
 
+.month {
+    background-color: #ff00ff;
+}
+
+.hovered {
+    background-color: #000 !important;
+    color: #fff;
+}
+
 td {
     border-left: 1px solid #000;
     border-right: 1px solid #000;
@@ -77,3 +86,4 @@ tr:last-child td {
 .monthHeader {
     text-align: center;
 }
+
