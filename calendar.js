@@ -36,13 +36,19 @@ function init() {
     });
     $('#toggleConfiguration').click(function(event) {
         event.preventDefault();
-        $('#configurationcontent').slideToggle('slow', 'swing');
+        $('#configurationcontent').slideToggle('fast', 'swing');
     });
     makeCalendar();
 }
 
+function toggleHighlight() {
+       $(this).nextUntil(".dayOfMonth").toggleClass("hovered", 1000);
+       $(this).toggleClass("hovered", 1000);
+       $(this).prevUntil(".weeknr").toggleClass("hovered", 1000);
+}
+
 function makeCalendar() {
-  $('#calendar table').empty();
+  $('#calendar table tbody').empty();
   var year = $('#year').attr('value');
   $('#calendar h1').html(year);
   var type = $("input[@name='amount']:checked").val()
@@ -86,7 +92,7 @@ function makeCalendar() {
 
   for (j=0; j<32;j++) {
     var newTr = $("<tr />");
-    $("#calendar table").append(newTr);
+    $("#calendar table tbody").append(newTr);
     for (i=startMonth; i<endMonth; i++) {
       if (j == 0) {
         monthHeader = $("<td colspan=4 class='monthHeader'>" + monthNames[i] + "</td>");
@@ -103,14 +109,17 @@ function makeCalendar() {
           theDate = new Date(year, i, j);
 
           dayname = theDate.toString('ddd');
+          daynameFull = theDate.toString('dddd');
           daynr = theDate.getDate();
           weeknr = "&nbsp;";
           if (theDate.is().mon()) {
             weeknr = "Uke " + theDate.getWeek();
           }
           var content = "&nbsp;";
-          monthHeader = $("<td id='" + i + "-" + j + "' class='dayOfMonth'>"  + (daynr) + "</td><td class='dayName'>" + dayname + "</td><td class='content'>" + content + "</td><td class='weeknr'>" + weeknr + "</td>");
+          monthHeader = $("<td id='" + i + "-" + j + "' class='dayOfMonth'>"  + (daynr) + "</td><td class='dayName' title='"+ daynameFull    + "'>" + dayname + "</td><td class='content' title='" + theDate + "'>" + content + "</td><td class='weeknr' title='" + theDate + "'>" + weeknr + "</td>");
+          //monthHeader = $("<td id='" + i + "-" + j + "'>"  + (daynr) + "</td><td>" + dayname + "</td><td>" + content + "</td><td>" + weeknr + "</td>");
           monthHeader.addClass("day")
+
           if (j%2==0)
             monthHeader.addClass("zebra");
 
@@ -145,5 +154,8 @@ function makeCalendar() {
       }
     }
   }
+
+  $('#calendar td').mouseenter(toggleHighlight);
+  $('#calendar td').mouseleave(toggleHighlight);
   $('#year').focus();
 }

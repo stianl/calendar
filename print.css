@@ -1,6 +1,13 @@
+@page {
+    size: A4 landscape;
+}
+
+html {
+    -webkit-print-color-adjust:exact;
+}
 #configuration {
     display: none;
 }
 #calendar {
-    padding: 0;
+    padding: 10;
 }
